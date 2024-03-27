@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AgriMate Crop Recommendation</title>
+    <link rel="icon" type="image/x-icon" href="/static/wheat.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('/static/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f5f5f5; 
+    color: #333;
+}
+
+.custom-container {
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 20px; 
+}
+
+.custom-container h1 {
+    color: #333;
+}
+
+
+body.dark-mode {
+    background-image: url('/static/dark.jpg'); 
+    color: #fff; 
+}
+
+.custom-container.dark-mode {
+    background-color: rgba(51, 51, 51, 0.9); 
+}
+
+.custom-container.dark-mode h1 {
+    color: #fff; 
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.navbar {
+    background-color: #333;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+
+.custom-container {
+    background-color: #f0f3d0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.custom-container h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-container input[type="number"],
+.custom-container input[type="search"] {
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, #FFD700, #FF8C00);
+    border-image-slice: 1;
+    transition: border 0.5s ease;
+    color: #333;
+}
+
+.custom-container input[type="number"]:focus,
+.custom-container input[type="search"]:focus {
+    outline: none;
+    border: 2px solid #FFD700;
+}
+
+.custom-container button[type="submit"] {
+    background-color: rgb(244, 169, 40);
+    color: #fff;
+}
+
+.custom-container button[type="submit"]:hover {
+    background-color: darkorange;
+}
+
+
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+.logout-button { background-color: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; } 
+.logout-button:hover { background-color: #26dda3; }
+.logout-button-container { float: right; }
+
+
+</style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/index">Crop Recommendation</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/weather">Weather Forecasting</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="https://agriwelfare.gov.in/en/Major" target="_blank">Schemes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="openPopup()" >AgriMate-ChatBot</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-light" id="darkModeToggle">☀️/🌘Mode</button>
+            </form>
+        </div>
+    </div>
+    <ul style="list-style: none;">
+        <li style="float: right;"><b><a class="logout-button active" href='/'style="text-decoration: none;">LogOut</a></b></li>
+    </ul>
+</nav>
+<div id="google_translate_element"></div> 
+<div class="container my-3 mt-3">
+    <div class="custom-container">
+        <div class="overlay"></div>
+        <h1 class="text-success" style="color:#0ac200 !important;">CROP RECOMMENDATION SYSTEM<span class="text-success"></span></h1>
+
+        <form action="{{ url_for('predict') }}" method="POST">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="Nitrogen">Nitrogen</label>
+                    <input type="number" id="Nitrogen" name="Nitrogen" placeholder="Enter Nitrogen" class="form-control"
+                           required step="0">
+                </div>
+                <div class="col-md-4">
+                    <label for="Phosporus">Phosphorus</label>
+                    <input type="number" id="Phosporus" name="Phosporus" placeholder="Enter Phosphorus"
+                           class="form-control" required step="00">
+                </div>
+                <div class="col-md-4">
+                    <label for="Potassium">Potassium</label>
+                    <input type="number" id="Potassium" name="Potassium" placeholder="Enter Potassium"
+                           class="form-control" required step="0" style="color: rgb(0, 0, 0);">
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <label for="Temperature">Temperature</label>
+                    <input type="number" step="0.01" id="Temperature" name="Temperature"
+                           placeholder="Enter Temperature in °C" class="form-control" required step="0" style="color: rgb(0, 0, 0);">
+                </div>
+                <div class="col-md-4">
+                    <label for="Humidity">Humidity</label>
+                    <input type="number" step="0.01" id="Humidity" name="Humidity" placeholder="Enter Humidity in %"
+                           class="form-control" required step="0" style="color: rgb(0, 0, 0);">
+                </div>
+                <div class="col-md-4">
+                    <label for="pH">pH</label>
+                    <input type="number" step="0.01" id="Ph" name="Ph" placeholder="Enter pH value" class="form-control"
+                           required step="0" style="color: rgb(0, 0, 0);">
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <label for="Rainfall">Rainfall</label>
+                    <input type="number" step="0.01" id="Rainfall" name="Rainfall" placeholder="Enter Rainfall in mm"
+                           class="form-control" required style="color: rgb(0, 0, 0);">
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg" style="background-color: rgb(105, 255, 64); color: #080808;">Get Recommendation</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        let darkMode = localStorage.getItem('darkMode') === 'enabled';
+
+        if (darkMode) {
+            body.classList.add('dark-mode');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            body.classList.toggle('dark-mode', darkMode);
+            localStorage.setItem('darkMode', darkMode ? 'enabled' : 'disabled');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const container = document.querySelector('.custom-container');
+        let darkMode = localStorage.getItem('darkMode') === 'enabled';
+    
+        if (darkMode) {
+            enableDarkMode();
+        }
+    
+        darkModeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            body.classList.toggle('dark-mode', darkMode);
+            container.classList.toggle('dark-mode', darkMode); 
+            localStorage.setItem('darkMode', darkMode ? 'enabled' : 'disabled');
+        });
+    
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            container.classList.add('dark-mode'); 
+        }
+    });
+    function openPopup() {
+            var popupWidth = 600; 
+            var popupHeight = 400; 
+            var left = (screen.width - popupWidth) / 2;
+            var top = (screen.height - popupHeight) / 2;
+            var popupFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + popupWidth + ', height=' + popupHeight + ', top=' + top + ', left=' + left;
+
+            window.open('https://agrimate-chatbot.streamlit.app/', '_blank', popupFeatures);
+        }
+</script>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    } 
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Lobster&family=Handlee&family=Great+Vibes&display=swap" rel="stylesheet">
+    <marquee behavior="scroll" direction="left" scrollamount="8" style="font-family: 'Pacifico', cursive; color: rgb(255, 255, 255); background-color: dark;">
+        There is no better display of faith than a farmer planting seeds in a field and working to grow a crop 🌾🌾🌾
+    </marquee>
+
+    <a href="#" onclick="openPopup()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+        <img src="/static/3.jpeg" alt="Bot Icon" style="width: 80px; height: 80px; border-radius: 50%; background-color: #fff; cursor: pointer;" title="AgriMateBot 🤖">
+    </a>
+</div>
+</body>
+</html>

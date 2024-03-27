@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/wheat.png">
+    <title>Home-AgriMate</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a{
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+        
+        .active {
+            background-color: #04AA6D;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-auto-rows: auto;
+            grid-gap: 20px;
+            padding: 20px;
+            color: white;
+            font-size: 18px;
+            grid-auto-flow: row dense;
+        }
+
+        .feature {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex; 
+            align-items: center; 
+        }
+
+        .feature:nth-child(even) img {
+            order: 2; 
+            margin-left: 20px; 
+            margin-right: 0;
+        }
+
+        .feature img {
+            max-width: 20%; 
+            border-radius: 10px;
+            margin-right: 20px;
+            margin-left: 0; 
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .logout-button { background-color: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; } 
+    .logout-button:hover { background-color: #26dda3; }
+    .logout-button-container { float: right; }
+    video {
+        filter: brightness(40%) contrast(100%);
+    }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted>
+        <source src="/static/B.mp4" type="video/mp4">
+    </video>
+    <ul>
+        <li><b><a href="/index">Crop Recommendation</a></b></li>
+        <li><b><a href="/weather">Weather Forecasting</a></b></li>
+        <li><b><a href="https://agriwelfare.gov.in/en/Major" target="_blank">Schemes</a></b></li>
+        <li><b><a href="#" onclick="openPopup()">AgriMate-ChatBot</a></b></li>
+        <li style="float: right;"><b><a class="logout-button active" href='/'>LogOut</a></b></li>
+    </ul>
+    
+    <div id="google_translate_element"></div> 
+
+    <h1 style="text-align: center; background-color: #f6f6f6;">AI Assisted App for farmers on Agri Practices & Suggestive Crops</h1>
+
+    <div class="container">
+        <div class="feature">
+            <img src="/static/1.jpg" alt="Image 1" title="Click this" style="cursor: pointer; pointer-events: auto;" onclick="window.location.href='/index';">
+            <div>
+                <h2 style="color: #f0eff1; font-family: Arial, sans-serif; text-align: justify;">CROP RECOMMENDATION</h2>
+                <p style="color: #eef1f4; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-align: justify;">The crop recommendation system leverages machine learning algorithms and integrates open weather API data to offer personalized crop suitability recommendations. It considers diverse environmental factors such as soil type, climate, precipitation, temperature, humidity, and pH levels. The system analyzes historical agricultural data and utilizes predictive models to provide tailored recommendations specific to individual farms or agricultural regions.</p>
+            </div>
+        </div>
+        <div class="feature">
+            <div>
+                <h2 style="color: #ffffff; font-family: Arial, sans-serif; text-align: justify;">WEATHER FORECASTING</h2>
+                <p style="color: #ffffff; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif; text-align: justify;">The weather forecasting feature provides accurate predictions using advanced meteorological models and algorithms. It forecasts various weather parameters such as temperature, humidity, wind speed, and precipitation. Users can access real-time weather updates and forecasts for their location. The system offers interactive visualizations and alerts to help users plan outdoor activities and make informed decisions based on weather conditions.</p>
+            </div>
+                <img src="/static/2.jpeg" alt="Image 2" style="cursor: pointer;"title="Click this" onclick="window.location.href='/weather';">
+        </div>
+        <div class="feature">
+           <img src="/static/3.jpeg" alt="Image 3" style="cursor: pointer;"onclick="openPopup()"title="Click this">
+           <div>
+            <h2 style="color: #fbfbfb; font-family: Arial, sans-serif; text-align: justify;">AGRIMATE-CHATBOT</h2>
+            <p style="color: #ffffff; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif; text-align: justify;">The system employs AI-driven chat-bot technology to provide interactive guidance and assistance to farmers. It offers personalized advice on crop selection, pest management, irrigation scheduling, and other agricultural practices. It assists farmers in accessing agricultural knowledge and expertise, making it easier to address farming challenges and optimize productivity. Additionally, the Agribot feature enhances accessibility by providing support via various communication channels such as text messaging, web chat, and mobile applications.</p>
+        </div>
+        </div>
+        <div class="feature">
+            <div>
+                <h2 style="color: #f6f6f6; font-family: Arial, sans-serif; text-align: justify;">SCHEMES</h2>
+                <p style="color: #ffffff; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif; text-align: justify;">The "Schemes for Farmers" feature provides comprehensive information about government-sponsored agricultural schemes and programs aimed at supporting farmers. It offers details on subsidies, grants, loans, and incentives available for various agricultural activities such as crop cultivation, livestock rearing, and farm infrastructure development. Users can access eligibility criteria, application procedures, and benefits offered by different schemes. The feature helps farmers stay informed about the latest agricultural policies and initiatives, empowering them to avail themselves of financial assistance and resources for improving their farming practices and livelihoods. <a href="/login" style="color: #007bff; text-decoration: underline;" >Click here for government schemes</a></p>
+            </div>
+            <img src="/static/4.jpeg" alt="Image 4" onclick="window.open( 'https://agriwelfare.gov.in/en/Major', '_blank')" style="cursor: pointer;" title="Click this">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+        function openPopup() {
+            var popupWidth = 600; 
+            var popupHeight = 400; 
+            var left = (screen.width - popupWidth) / 2;
+            var top = (screen.height - popupHeight) / 2;
+            var popupFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + popupWidth + ', height=' + popupHeight + ', top=' + top + ', left=' + left;
+
+            window.open('https://agrimate-chatbot.streamlit.app/', '_blank', popupFeatures);
+        }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <a href="#" onclick="openPopup()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+    <img src="/static/3.jpeg" alt="Bot Icon" style="width: 80px; height: 80px; border-radius: 50%; background-color: #fff; cursor: pointer;" title="AgriMateBot 🤖">
+</a>
+</body>
+</html>

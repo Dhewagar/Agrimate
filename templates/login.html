@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - AgriMate</title>
+    <link rel="icon" type="image/x-icon" href="/static/wheat.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+    
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: url(./static/bg.jpg) no-repeat;
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .container {
+            width: 400px;
+            height: 500px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+    
+        h2 {
+            color: #ffff;
+            font-size: 2em;
+            text-transform: uppercase;
+            padding: 20px 0;
+        }
+    
+        .form-group {
+            position: relative;
+            width: 330px;
+            margin: 30px 0;
+            border-bottom: 3px solid #ffff;
+        }
+    
+        .form-group input {
+            width: 100%;
+            height: 50px;
+            padding: 0 35px 0 10px;
+            font-size: 1.2em;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+        }
+    
+        .form-group label {
+            font-size: 1.2em;
+            color: #fff;
+            transition: 0.5s;
+            text-align: left; /* Align label text to the left */
+        }
+    
+        input:focus~label,
+        input:valid~label {
+            top: -5px;
+        }
+    
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #ffff;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+    
+        p {
+            text-align: center;
+            color: #fff;
+            margin: 10px 0;
+        }
+    
+        p>a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+    
+        p>a:hover {
+            text-decoration: underline;
+            font-style: italic;
+        }
+    
+        #login {
+            width: 100%;
+            height: 50px;
+            border-radius: 40px;
+            border: none;
+            font-size: 1.5em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+    
+        #login:hover {
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="google_translate_element"></div> 
+        <form name="login_form" id="loginForm" method="post" action="#" enctype="multipart/form-data">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <br>
+                    <input type="email" name="login_email" id="login_email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <br>
+                    <input type="password" name="login_password" id="login_password" class="form-control" placeholder="Enter your password">
+                </div>
+                <p> <a href="#" id="forgot">Forget Password</a></p>
+                <button type="button" id="login" name="login" class="btn btn-success">Login</button>
+                <p>New User ?&nbsp; &nbsp;<a href="/auth">Register</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAq_Z-B8BrOm6fTNPRSVXX7_QHQSJIDnmw",
+            authDomain: "login-with-firebase-data-5cef4.firebaseapp.com",
+            databaseURL: "https://login-with-firebase-data-5cef4-default-rtdb.firebaseio.com",
+            projectId: "login-with-firebase-data-5cef4",
+            storageBucket: "login-with-firebase-data-5cef4.appspot.com",
+            messagingSenderId: "932267970494",
+            appId: "1:932267970494:web:d02b5a00f4b0e547f8b3ef"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+        console.log(app);
+
+        document.getElementById("login").addEventListener("click", function () {
+            var email = document.getElementById("login_email").value;
+            var password = document.getElementById("login_password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(user);
+                    window.location.href = "/home";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                    alert(errorMessage);
+                });
+        });
+        var forgotpasslabel = document.getElementById("forgot");
+        var ForgotPassword = () => {
+            var email = document.getElementById("login_email").value;
+            sendPasswordResetEmail(auth, email)
+                .then(() => {
+                    alert("A Password Reset Link has been sent to your email");
+                })
+                .catch((error) => {
+                    console.log(error.code);
+                    console.log(error.message);
+                })
+        }
+        forgotpasslabel.addEventListener('click', ForgotPassword);
+
+    </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+
+</html>
