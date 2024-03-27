@@ -1,4 +1,3 @@
 flask
 numpy
-pandas
 pickle
