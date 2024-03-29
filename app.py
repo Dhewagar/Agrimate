@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
 import numpy as np
-import pandas
 import sklearn
 import pickle
 
