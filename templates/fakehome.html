@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="/static/wheat.png">
     <title>Home-AgriMate</title>
     <style>
@@ -83,13 +84,38 @@
             .container {
                 grid-template-columns: 1fr;
             }
+
+            .feature {
+                flex-direction: column;
+            }
+
+            .feature img {
+                max-width: 100%;
+                margin: 0 auto 20px auto;
+            }
         }
-        .logout-button { background-color: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; } 
-    .logout-button:hover { background-color: #26dda3; }
-    .logout-button-container { float: right; }
-    video {
-        filter: brightness(40%) contrast(100%);
-    }
+        
+        .logout-button { 
+            background-color: #04AA6D; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+        } 
+
+        .logout-button:hover { 
+            background-color: #26dda3; 
+        }
+
+        .logout-button-container { 
+            float: right; 
+        }
+
+        video {
+            filter: brightness(40%) contrast(100%);
+        }
     </style>
 </head>
 <body>
@@ -105,24 +131,20 @@
     </ul>
     
     <div id="google_translate_element"></div> 
-
     <h1 style="text-align: center; background-color: #f6f6f6;">AI Assisted App for farmers on Agri Practices & Suggestive Crops</h1>
-
     <div class="container">
         <div class="feature">
             <img src="/static/1.jpg" alt="Image 1" title="Click this" style="cursor: pointer; pointer-events: auto;" onclick="window.location.href='/login';">
             <div>
                 <h2 style="color: #f8f8f8; font-family: Arial, sans-serif; text-align: justify;">CROP RECOMMENDATION</h2>
-                <p style="color: #eef1f4; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-align: justify;">The crop recommendation system leverages machine learning algorithms to offer personalized crop suitability recommendations. It considers diverse environmental factors such as soil type, climate, precipitation, temperature, humidity, and pH levels. The system analyzes historical agricultural data and utilizes predictive models to provide tailored recommendations specific to individual farms or agricultural regions.</p>
-            </div> 
-            
+                <p style="color: #eef1f4; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-align: justify;">The crop recommendation system leverages machine learning algorithms to offer personalized crop suitability recommendations. It considers diverse environmental factors such as soil type, climate, precipitation, temperature, humidity, and pH levels. The system analyzes historical agricultural data and utilizes predictive models to provide tailored recommendations specific to individual farms or agricultural regions.</p>            </div> 
         </div>
         <div class="feature">
             <div>
                 <h2 style="color: #ffffff; font-family: Arial, sans-serif; text-align: justify;">WEATHER FORECASTING</h2>
                 <p style="color: #ffffff; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif; text-align: justify;">The weather forecasting feature provides accurate predictions using advanced meteorological models and algorithms. It forecasts various weather parameters such as temperature, humidity, wind speed, and precipitation. Users can access real-time weather updates and forecasts for their location. The system offers interactive visualizations and alerts to help users plan outdoor activities and make informed decisions based on weather conditions.</p>
             </div>
-                <img src="/static/2.jpeg" alt="Image 2" style="cursor: pointer;"title="Click this" onclick="window.location.href='/login';">
+            <img src="/static/2.jpeg" alt="Image 2" style="cursor: pointer;" title="Click this" onclick="window.location.href='/login';">
         </div>
         <div class="feature">
            <img src="/static/3.jpeg" alt="Image 3" style="cursor: pointer;"onclick="window.location.href='/login'"title="Click this">
@@ -156,11 +178,11 @@
 
             window.open('/login', '_blank', popupFeatures);
         }
-  </script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  <a href="/login" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <img src="/static/3.jpeg" alt="Bot Icon" style="width: 80px; height: 80px; border-radius: 50%; background-color: #fff; cursor: pointer;" title="AgriMateBot 🤖">
-</a>
+    <a href="/login" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+        <img src="/static/3.jpeg" alt="Bot Icon" style="width: 80px; height: 80px; border-radius: 50%; background-color: #fff; cursor: pointer;" title="AgriMateBot 🤖">
+    </a>
 </body>
 </html>
