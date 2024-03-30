@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Register - AgriMate</title>
     <link rel="icon" type="image/x-icon" href="/static/wheat.png">
     <style>
@@ -132,7 +133,14 @@
                     
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" >
+                        <div class="input-group">
+                            <input type="password" name="login_password" id="login_password" class="form-control" placeholder="Enter your password">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <button type="button" id="register" name="register" class="btn btn-success">Register</button>
                     <p>Registered User? <a href="/login">Login</a></p>
@@ -173,6 +181,12 @@
             console.log(errorMessage);
             alert(errorMessage);
         });		  
+    });
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('login_password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
     });
 </script>
 <script type="text/javascript">
