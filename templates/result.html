@@ -12,27 +12,22 @@
 
 <style>
     body {
-        background-color: #BCBBB8;
+        background-color: #fffefc;
         color: white;
         overflow: hidden;
     }
 
+    h1,
+    h4 {
+        color: mediumseagreen;
+        text-align: center;
+    }
 
-    h1  {
-        color: mediumseagreen;
-        text-align: center;
-    }
-    h4  {
-        color: mediumseagreen;
-        text-align: center;
-    }
-   
     .card-title,
     .card-text {
         color: white;
     }
 
-   
     #background-video {
         position: fixed;
         top: 50%;
@@ -43,10 +38,12 @@
         height: auto;
         z-index: -1;
         transform: translateX(-50%) translateY(-50%);
-        opacity: 0.7; 
+        opacity: 0.7;
+    }
+    .navbar-nav .nav-link {
+        color: white; 
     }
 
- 
     .overlay {
         position: fixed;
         top: 0;
@@ -58,34 +55,67 @@
         z-index: -1;
     }
 
-
     nav {
-        background-color: rgb(1, 36, 1); 
+        background-color: rgb(1, 36, 1);
         padding: 15px;
         text-align: center;
     }
 
     nav a {
-        color: white;
+        color: rgb(249, 248, 248);
         text-decoration: none;
         margin: 0 15px;
     }
-    .logout-button { background-color: #04AA6D; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; } 
-    .logout-button:hover { background-color: #26dda3; }
-    .logout-button-container { float: right; }
+
+    .logout-button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+        background-color: #26dda3;
+    }
+
+    .logout-button-container {
+        float: right;
+    }
 
 </style>
 
 <body>
-    <nav>
-        <b><a href="/home">Main Home</a></b>
-        <b><a href="/index">Home (Crop Recommendation)</a></b>
-        <b><a href="/weather">Weather Forecasting</a></b>
-        <b><a href="https://agriwelfare.gov.in/en/Major" target="_blank">Schemes</a></b>
-        <b><a href="#" onclick="openPopup()" >AgriMate-ChatBot</a></b>
-        <div class="logout-button-container"><b><a class="logout-button active" href='/' >LogOut</a></b></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index">Home (Crop Recommendation)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/weather">Weather Forecasting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://agriwelfare.gov.in/en/Major" target="_blank">Schemes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="openPopup()">AgriMate-ChatBot</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="logout-button-container">
+                <a class="logout-button active" href='/'>LogOut</a>
+            </div>
+        </div>
     </nav>
-    <div id="google_translate_element"></div> 
+    <div id="google_translate_element"></div>
     <video autoplay muted loop id="background-video">
         <source src="/static/Crop.mp4" type="video/mp4">
     </video>
@@ -93,39 +123,44 @@
     <div class="container">
         <h4 style="color: rgb(255, 255, 255);">AgriMate - Analysis Result</h4>
         <div class="card bg-dark" style="width: 20rem; margin: 0 auto;">
-            
-        <img src="{{ url_for('static', filename='Recommendation.png') }}" class="card-img-top" alt="...">
-        <div class="card-body">
+
+            <img src="{{ url_for('static', filename='Recommendation.png') }}" class="card-img-top" alt="...">
+            <div class="card-body">
                 <h5 class="card-title">Recommended Crop for cultivation is:</h5>
                 <p class="card-text">{{ crop }}</p>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bo otstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
 </body>
 <script type="text/javascript">
     function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-            {pageLanguage: 'en'},
-            'google_translate_element'
-        );
-    } 
+        new google.translate.TranslateElement({
+            pageLanguage: 'en'
+        }, 'google_translate_element');
+    }
+
     function openPopup() {
-            var popupWidth = 600; 
-            var popupHeight = 400; 
-            var left = (screen.width - popupWidth) / 2;
-            var top = (screen.height - popupHeight) / 2;
-            var popupFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + popupWidth + ', height=' + popupHeight + ', top=' + top + ', left=' + left;
+        var popupWidth = 600;
+        var popupHeight = 400;
+        var left = (screen.width - popupWidth) / 2;
+        var top = (screen.height - popupHeight) / 2;
+        var popupFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + popupWidth + ', height=' + popupHeight + ', top=' + top + ', left=' + left;
 
-            window.open('https://agrimate-chatbot.streamlit.app/', '_blank', popupFeatures);
-        }
+        window.open('https://agrimate-chatbot.streamlit.app/', '_blank', popupFeatures);
+    }
 </script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<a href="#" onclick="openPopup()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <img src="/static/3.jpeg" alt="Bot Icon" style="width: 80px; height: 80px; border-radius: 50%; background-color: #fff; cursor: pointer;" title="AgriMateBot 🤖">
+<a href="#" onclick="openPopup()"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+    <img src="/static/3.jpeg" alt="Bot Icon"
+        style="width: 80px; height: 80px; border-radius: 50%; background-color: #fff; cursor: pointer;"
+        title="AgriMateBot 🤖">
 </a>
+
 </html>
