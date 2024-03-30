@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Login - AgriMate</title>
     <link rel="icon" type="image/x-icon" href="/static/wheat.png">
     <style>
@@ -135,8 +136,14 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <br>
-                    <input type="password" name="login_password" id="login_password" class="form-control" placeholder="Enter your password">
+                    <div class="input-group">
+                        <input type="password" name="login_password" id="login_password" class="form-control" placeholder="Enter your password">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-eye" id="togglePassword"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <p> <a href="#" id="forgot">Forget Password</a></p>
                 <button type="button" id="login" name="login" class="btn btn-success">Login</button>
@@ -194,7 +201,12 @@
                 })
         }
         forgotpasslabel.addEventListener('click', ForgotPassword);
-
+        document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('login_password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+    });
     </script>
     <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -203,6 +215,7 @@
                 'google_translate_element'
             );
         } 
+
   </script>
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
