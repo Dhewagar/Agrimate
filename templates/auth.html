@@ -168,7 +168,7 @@
     
     document.getElementById("register").addEventListener("click", function() {
         var email =  document.getElementById("email").value;
-        var password = document.getElementById("password").value;
+        var password = document.getElementById("login_password").value;
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
